@@ -1,6 +1,29 @@
 %% Kalman Filter Design 1 - USST
 %{
-Description:
+Description: 
+
+This Kalman Filter is an attempt to estimate and track the
+altitude of a model rocket over time using simulated barometric pressure
+measurements.
+
+The filter uses a 1D constant acceleration motion model to describe the
+vertical dynamics. Its state vector consists of three variables: altitude,
+vertical velocity, and vertical acceleration.
+
+The prediction step propagates the estimated state forward in time using
+the equations of motion. The correction step incorporates altitude
+measurements derived from barometric pressure using the International
+Standard Atmosphere (ISA) barometric equation.
+
+Measurement noise is introduced to simulate imperfections in the pressure
+sensor. The KF then combines the predicted state with the measured altitude
+to produce a smoothed altitude estimate.
+
+The KF currently has constant quantization noise. Future addition is to
+randomize this noise and observe the behavior of the filter.
+
+For reference equations and theory, refer to: 
+https://kalmanfilter.net/multiSummary.html
 %}
 close all;
 clear;
@@ -148,3 +171,4 @@ end
 plot(t, h_true, "-r");
 hold on;
 plot(t, x_update(1, :), "--b")
+legend("True height", "Predicted height");
